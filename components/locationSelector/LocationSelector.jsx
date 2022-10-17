@@ -12,6 +12,7 @@ const style = {
 };
 
 const LocationSelector = () => {
+<<<<<<< HEAD
   const [inFocus, setInFocus] = useState("from");
   const [pickup, setPickup] = useState("");
   const [dropoff, setDropoff] = useState("");
@@ -24,6 +25,17 @@ const LocationSelector = () => {
         {inFocus === "from" ? "Where can we pick you up?" : "Where to?"}
       </div>
 
+=======
+  const [inFocus, setInFocus] = useState("From");
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropoff] = useState("");
+
+  return (
+    <div className={style.wrapper}>
+      <div className={style.searchHeader}>
+        {inFocus === "From" ? "Where can we pick you up?" : "Where to?"}
+      </div>
+>>>>>>> e60b578909cc31e8a78c0a5278260c16dba68f1d
       <div className={style.inputBoxes}>
         <div
           className={`${style.inputBox} ${
@@ -35,7 +47,11 @@ const LocationSelector = () => {
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
+<<<<<<< HEAD
                 d="M12 14a2 2 0 100-4 2 2 0 000 4zm5-2a5 5 0 11-10 0 5 5 0 0110 0z"
+=======
+                d="M12 14a2 0 100-4 2 2 0 000 4zm5-2a5 5 0 11-10 0 5 5 0 0110 0z"
+>>>>>>> e60b578909cc31e8a78c0a5278260c16dba68f1d
               />
             </svg>
           </div>
@@ -43,6 +59,7 @@ const LocationSelector = () => {
             className={style.input}
             placeholder="Enter pickup location"
             value={pickup}
+<<<<<<< HEAD
             onChange={(e) => setPickup(e.target.value)}
             onFocus={() => setInFocus("from")}
           />
@@ -71,6 +88,12 @@ const LocationSelector = () => {
             onFocus={() => setInFocus("to")}
           />
         </div>
+=======
+            onChange={(e) => setPickup(e.target.vale)}
+            onFocus={() => setInFocus("from")}
+          />
+        </div>
+>>>>>>> e60b578909cc31e8a78c0a5278260c16dba68f1d
       </div>
     </div>
   );
