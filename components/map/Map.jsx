@@ -15,11 +15,9 @@ const Map = () => {
   return (
     <GoogleMap
       mapContainerClassName={style.wrapper}
-      center={{ lat: 44, lng: -80 }}
+      center={{ lat: 4.159699009153205, lng: 9.259655962772557 }}
       zoom={10}
-    >
-      <Marker position={{ lat: 44, lng: -80 }} />
-    </GoogleMap>
+    ></GoogleMap>
   );
 };
 

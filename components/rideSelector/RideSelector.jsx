@@ -21,15 +21,13 @@ const basePrice = 1542;
 const RideSelector = () => {
   const [carList, setCarList] = useState([]);
 
-  console.log(carList);
-
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch("/api/db/getRideTypes");
 
-        console.log(response);
         const data = await response.json();
+        console.log(data.data);
         setCarList(data.data);
       } catch (error) {
         console.error(error);
@@ -41,29 +39,27 @@ const RideSelector = () => {
     <div className={style.wrapper}>
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carListStyle}>
-        {Array.isArray(carList)
-          ? carList.map((car, index) => (
-              <div className={style.car} key={index}>
-                <Image
-                  src={car.iconUrl}
-                  width={50}
-                  height={50}
-                  alt="Car Icon"
-                  className={style.carImage}
-                />
-                <div className={style.carDetals}>
-                  <div className={style.service}>{car.service}</div>
-                  <div className={style.time}>5 mins away</div>
-                </div>
-                <div className={style.priceContainer}>
-                  <div className={style.price}>
-                    {((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)}
-                    <FaEthereum />
-                  </div>
-                </div>
+        {carList.map((car, index) => (
+          <div className={style.car} key={index}>
+            <Image
+              src={car.iconUrl}
+              className={style.carImage}
+              width={50}
+              height={50}
+              alt={car.service}
+            />
+            <div className={style.carDetals}>
+              <div className={style.service}>{car.service}</div>
+              <div className={style.time}>5 mins away</div>
+            </div>
+            <div className={style.priceContainer}>
+              <div className={style.price}>
+                {((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)}
+                <FaEthereum />
               </div>
-            ))
-          : "null"}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
