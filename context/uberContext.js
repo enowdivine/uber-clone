@@ -5,10 +5,10 @@ export const UberContext = createContext();
 export const UberProvider = ({ children }) => {
   const [pickup, setPickup] = useState("");
   const [dropoff, setDropoff] = useState("");
-  const [pickupCoordinates, setPickupCoordinates] = useState("");
-  const [dropoffCoordinates, setDropoffCoordinates] = useState("");
+  const [pickupCoordinates, setPickupCoordinates] = useState();
+  const [dropoffCoordinates, setDropoffCoordinates] = useState();
 
-  const createLocationCoordinatePromise = () => {
+  const createLocationCoordinatePromise = (locationName, locationType) => {
     return new Promise(async (resolve, reject) => {
       const responses = await fetch("api/map/getLocationCoordinates", {
         method: "POST",
@@ -17,7 +17,6 @@ export const UberProvider = ({ children }) => {
         },
         body: JSON.stringify({
           location: locationName,
-          locationType: locationType,
         }),
       });
 
@@ -42,16 +41,33 @@ export const UberProvider = ({ children }) => {
     });
   };
 
+  console.log(pickupCoordinates, dropoffCoordinates);
+
   useEffect(() => {
     if (pickup && dropoff) {
-      async () => {
+      (async () => {
         await Promise.all([
           createLocationCoordinatePromise(pickup, "pickup "),
           createLocationCoordinatePromise(dropoff, "dropoff "),
         ]);
-      };
+      })();
     } else return;
   }, [pickup, dropoff]);
 
-  return <UberContext.Provider value={{}}>{children}</UberContext.Provider>;
+  return (
+    <UberContext.Provider
+      value={{
+        pickup,
+        setPickup,
+        dropoff,
+        setDropoff,
+        pickupCoordinates,
+        setPickupCoordinates,
+        dropoffCoordinates,
+        setDropoffCoordinates,
+      }}
+    >
+      {children}
+    </UberContext.Provider>
+  );
 };

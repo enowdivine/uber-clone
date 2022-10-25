@@ -1,8 +1,8 @@
 const getLocationCoordinates = async (req, res) => {
-  const mapUrl = `${process.env.NEXT_PUBLIC_MAP_PLACES_API_URL}/${req.body.location}.json?access_token=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+  const mapboxUrl = `${process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL}/${req.body.location}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN}`;
 
   try {
-    const response = await fetch(mapUrl);
+    const response = await fetch(mapboxUrl);
 
     const data = await response.json();
 

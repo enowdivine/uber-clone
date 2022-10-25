@@ -1,24 +1,44 @@
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { useEffect, useContext } from "react";
+import { UberContext } from "../../context/uberContext";
+import mapboxgl from "mapbox-gl";
 
 const style = {
   wrapper: `flex-1 h-full w-full`,
 };
 
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN;
+
 const Map = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-  });
+  const { pickupCoordinates, dropoffCoordinates } = useContext(UberContext);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  useEffect(() => {
+    const mapbox = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/enowdivine/cl9oox5ws000a14kh3a2hvbi3",
+      center: [-99.29011, 39.39172],
+      zoom: 5,
+    });
 
-  return (
-    <GoogleMap
-      mapContainerClassName={style.wrapper}
-      center={{ lat: 4.159699009153205, lng: 9.259655962772557 }}
-      zoom={10}
-    ></GoogleMap>
-  );
+    if (pickupCoordinates) {
+      addToMap(map, pickupCoordinates);
+    }
+
+    if (dropoffCoordinates) {
+      addToMap(map, dropoffCoordinates);
+    }
+
+    if (pickupCoordinates && dropoffCoordinates) {
+      map.fitBounds([dropoffCoordinates, pickupCoordinates], {
+        padding: 400,
+      });
+    }
+  }, [pickupCoordinates, dropoffCoordinates]);
+
+  const addToMap = (map, coordinates) => {
+    const marker1 = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+  };
+
+  return <div className={style.wrapper} id="map" />;
 };
 
 export default Map;
