@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { FaEthereum } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UberContext } from "../../context/uberContext";
 
 const style = {
   wrapper: `h-full flex flex-col`,
   title: `text-gray-500 text-center text-xs py-2 border-b`,
   carListStyle: `flex flex-col flex-1 overflow-scroll`,
   car: `flex p-3 m-2 items-center border-2 border-white`,
-  selectedcar: `border-2 border-black flex p-3 m-2 items-center`,
+  selectedCar: `border-2 border-black flex p-3 m-2 items-center`,
   carImage: `h-14`,
   carDetals: `ml-2 flex-1`,
   service: `font-medium`,
@@ -20,6 +21,8 @@ const basePrice = 1542;
 
 const RideSelector = () => {
   const [carList, setCarList] = useState([]);
+  const { selectedRide, setSelectedRide, setPrice, basePrice } =
+    useContext(UberContext);
 
   useEffect(() => {
     (async () => {
@@ -27,7 +30,7 @@ const RideSelector = () => {
         const response = await fetch("/api/db/getRideTypes");
 
         const data = await response.json();
-        setCarList(data.data);
+        setCarList(data.data[0]);
       } catch (error) {
         console.error(error);
       }
@@ -39,7 +42,14 @@ const RideSelector = () => {
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carListStyle}>
         {carList.map((car, index) => (
-          <div className={style.car} key={index}>
+          <div
+            key={index}
+            className={`${
+              selectedRide.service === car.service
+                ? style.selectedCar
+                : style.car
+            }`}
+          >
             <Image
               src={car.iconUrl}
               className={style.carImage}

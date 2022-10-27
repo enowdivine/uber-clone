@@ -34,6 +34,8 @@ const Map = () => {
     }
   }, [pickupCoordinates, dropoffCoordinates]);
 
+  console.log(pickupCoordinates, dropoffCoordinates);
+
   const addToMap = (map, coordinates) => {
     const marker1 = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
   };
