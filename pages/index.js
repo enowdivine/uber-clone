@@ -1,3 +1,4 @@
+import "../styles/Home.module.css";
 import Navbar from "../components/navbar/Navbar";
 import Map from "../components/map/Map";
 import LocationSelector from "../components/locationSelector/LocationSelector";
@@ -19,7 +20,7 @@ export default function Home() {
         <Map />
       </div>
       <div className={style.rideRequestContainer}>
-        <div className={style.rideRequest}>
+        <div className={`${style.rideRequest} bar`}>
           <LocationSelector />
           <Confirm />
         </div>

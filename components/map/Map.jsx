@@ -12,8 +12,6 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN;
 const Map = () => {
   const { pickupCoordinates, dropoffCoordinates } = useContext(UberContext);
 
-  console.log(pickupCoordinates, dropoffCoordinates);
-
   useEffect(() => {
     const mapbox = new mapboxgl.Map({
       container: "map",

@@ -1,3 +1,4 @@
+import "../../styles/Home.module.css";
 import Image from "next/image";
 import { FaEthereum } from "react-icons/fa";
 import { useEffect, useState, useContext } from "react";
@@ -39,7 +40,7 @@ const RideSelector = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.title}>Choose a ride, or swipe up for more</div>
-      <div className={style.carListStyle}>
+      <div className={`${style.carListStyle} bar`}>
         {carList.map((car, index) => (
           <div
             key={index}

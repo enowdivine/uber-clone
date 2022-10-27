@@ -57,8 +57,7 @@ const Confirm = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.rideSelectorContainer}>
-        {/* {pickupCoordinates && dropoffCoordinates && <RideSelector />} */}
-        <RideSelector />
+        {pickupCoordinates && dropoffCoordinates && <RideSelector />}
       </div>
       <div className={style.confirmButtonContainer}>
         <div className={style.confirmButtonContainer}>
