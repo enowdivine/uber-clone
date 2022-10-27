@@ -12,8 +12,6 @@ const getUserInfo = async (req, res) => {
 
     const sanityResponse = await client.fetch(query);
 
-    console.log(sanityResponse);
-
     res.status(200).send({ message: "success", data: sanityResponse[0] });
   } catch (error) {
     console.error(error);

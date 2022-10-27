@@ -17,8 +17,6 @@ const style = {
   price: `mr-[-0.8rem]`,
 };
 
-const basePrice = 1542;
-
 const RideSelector = () => {
   const [carList, setCarList] = useState([]);
   const { selectedRide, setSelectedRide, setPrice, basePrice } =
@@ -30,7 +28,8 @@ const RideSelector = () => {
         const response = await fetch("/api/db/getRideTypes");
 
         const data = await response.json();
-        setCarList(data.data[0]);
+        setCarList(data.data);
+        setSelectedRide(data.data[0]);
       } catch (error) {
         console.error(error);
       }
@@ -49,6 +48,12 @@ const RideSelector = () => {
                 ? style.selectedCar
                 : style.car
             }`}
+            onClick={() => {
+              setSelectedRide(car);
+              setPrice(
+                ((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)
+              );
+            }}
           >
             <Image
               src={car.iconUrl}

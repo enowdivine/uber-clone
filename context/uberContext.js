@@ -30,10 +30,10 @@ export const UberProvider = ({ children }) => {
   }, [currentAccount]);
 
   useEffect(() => {
-    if (!pickupCoordinates || dropoffCoordinates) return;
-    async () => {
+    if (!pickupCoordinates || !dropoffCoordinates) return;
+    (async () => {
       try {
-        const response = await fetch("//api/map/getDuration", {
+        const response = await fetch("/api/map/getDuration", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const UberProvider = ({ children }) => {
       } catch (error) {
         console.error(error);
       }
-    };
+    })();
   }, [pickupCoordinates, dropoffCoordinates]);
 
   const checkIfWalletIsConnected = async () => {
@@ -98,7 +98,6 @@ export const UberProvider = ({ children }) => {
       });
 
       const data = await response.json();
-
       if ((data.message = "success")) {
         switch (locationType) {
           case "pickup":
@@ -106,9 +105,6 @@ export const UberProvider = ({ children }) => {
             break;
           case "dropoff":
             setDropoffCoordinates(data.data);
-            break;
-
-          default:
             break;
         }
         resolve();
@@ -122,8 +118,8 @@ export const UberProvider = ({ children }) => {
     if (pickup && dropoff) {
       (async () => {
         await Promise.all([
-          createLocationCoordinatePromise(pickup, "pickup "),
-          createLocationCoordinatePromise(dropoff, "dropoff "),
+          createLocationCoordinatePromise(pickup, "pickup"),
+          createLocationCoordinatePromise(dropoff, "dropoff"),
         ]);
       })();
     } else return;

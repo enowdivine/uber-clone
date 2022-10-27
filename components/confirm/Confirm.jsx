@@ -1,7 +1,7 @@
 import RideSelector from "../rideSelector/RideSelector";
 import { useContext } from "react";
 import { UberContext } from "../../context/uberContext";
-//import { ethers } from "ethers";
+import { ethers } from "ethers";
 
 const style = {
   wrapper: `flex-1 h-full flex flex-col justify-between`,
@@ -57,7 +57,8 @@ const Confirm = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.rideSelectorContainer}>
-        {pickupCoordinates && dropoffCoordinates && <RideSelector />}
+        {/* {pickupCoordinates && dropoffCoordinates && <RideSelector />} */}
+        <RideSelector />
       </div>
       <div className={style.confirmButtonContainer}>
         <div className={style.confirmButtonContainer}>

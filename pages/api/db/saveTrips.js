@@ -2,6 +2,7 @@ import { client } from "../../../lib/sanity";
 
 const saveTrips = async (req, res) => {
   try {
+    console.log(req.body);
     const tripDoc = {
       _type: "trips",
       _id: `${req.body.userWalletAddress}-${Date.now()}`,
